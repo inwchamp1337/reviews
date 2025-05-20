@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     movies: Movie;
     reviews: Review;
+    comments: Comment;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,6 +82,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     movies: MoviesSelect<false> | MoviesSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
+    comments: CommentsSelect<false> | CommentsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -194,6 +196,24 @@ export interface Review {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "comments".
+ */
+export interface Comment {
+  id: number;
+  /**
+   * The review this comment belongs to
+   */
+  review: number | Review;
+  /**
+   * The user who wrote this comment
+   */
+  user: number | User;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -214,6 +234,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'reviews';
         value: number | Review;
+      } | null)
+    | ({
+        relationTo: 'comments';
+        value: number | Comment;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -311,6 +335,17 @@ export interface ReviewsSelect<T extends boolean = true> {
   user?: T;
   movie?: T;
   rating?: T;
+  content?: T;
+  createdAt?: T;
+  updatedAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "comments_select".
+ */
+export interface CommentsSelect<T extends boolean = true> {
+  review?: T;
+  user?: T;
   content?: T;
   createdAt?: T;
   updatedAt?: T;
