@@ -1,11 +1,12 @@
 import type { CollectionConfig } from 'payload'
 import { reviewHooks } from './hooks'
-import { reviewValidation } from './validation'
 
 export const Reviews: CollectionConfig = {
   slug: 'reviews',
   admin: {
-    useAsTitle: 'movieTitle',
+    // เปลี่ยนจาก useAsTitle: 'movieTitle' เป็น rating หรือ id
+    useAsTitle: 'id',
+    // เอา movieTitle ออกจาก defaultColumns
     defaultColumns: ['rating', 'user', 'movie', 'createdAt'],
   },
   hooks: reviewHooks,
@@ -29,27 +30,11 @@ export const Reviews: CollectionConfig = {
       },
     },
     {
-      name: 'movieTitle',
-      type: 'text',
-      admin: {
-        readOnly: true,
-      },
-      hooks: {
-        beforeChange: [
-          async ({ data, req }) => {
-            // This will be populated via a hook
-            return data.movieTitle;
-          }
-        ]
-      }
-    },
-    {
       name: 'rating',
       type: 'number',
       required: true,
       min: 1,
       max: 10,
-      validate: reviewValidation.validateRating,
       admin: {
         description: 'Rating from 1-10',
       },
@@ -72,5 +57,3 @@ export const Reviews: CollectionConfig = {
     },
   ],
 }
-
-// export default Reviews

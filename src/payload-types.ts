@@ -184,7 +184,6 @@ export interface Review {
    * The movie being reviewed
    */
   movie: number | Movie;
-  movieTitle?: string | null;
   /**
    * Rating from 1-10
    */
@@ -311,7 +310,6 @@ export interface MoviesSelect<T extends boolean = true> {
 export interface ReviewsSelect<T extends boolean = true> {
   user?: T;
   movie?: T;
-  movieTitle?: T;
   rating?: T;
   content?: T;
   createdAt?: T;
