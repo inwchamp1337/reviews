@@ -32,6 +32,10 @@ services:
   postgres:
     restart: always
     image: postgres:latest
+    environment:
+      - POSTGRES_PASSWORD=postgres     # รหัสผ่าน superuser (จำเป็นต้องมี)
+      - POSTGRES_USER=postgres         # ชื่อผู้ใช้ (ค่าเริ่มต้นคือ "postgres")
+      - POSTGRES_DB=reviews            # ชื่อฐานข้อมูล
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
@@ -39,5 +43,5 @@ services:
 
 volumes:
   data:
-  # pgdata:
+  pgdata:
   node_modules:
