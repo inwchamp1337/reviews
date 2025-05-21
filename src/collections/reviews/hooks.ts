@@ -16,7 +16,7 @@ const addCreatedAt: CollectionBeforeChangeHook = async ({
 const notifyAboutReview: CollectionAfterChangeHook = async ({
   operation,
   doc,
-  req,
+ // req,
 }) => {
   if (operation === 'create') {
     // เปลี่ยนจาก doc.movieTitle เป็น doc.id หรือ movie id
