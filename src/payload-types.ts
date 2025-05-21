@@ -72,7 +72,6 @@ export interface Config {
     movies: Movie;
     reviews: Review;
     comments: Comment;
-    profile: Profile;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -84,7 +83,6 @@ export interface Config {
     movies: MoviesSelect<false> | MoviesSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     comments: CommentsSelect<false> | CommentsSelect<true>;
-    profile: ProfileSelect<false> | ProfileSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -216,19 +214,6 @@ export interface Comment {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "profile".
- */
-export interface Profile {
-  id: number;
-  /**
-   * ข้อมูลผู้ใช้
-   */
-  user: number | User;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -253,10 +238,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'comments';
         value: number | Comment;
-      } | null)
-    | ({
-        relationTo: 'profile';
-        value: number | Profile;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -368,15 +349,6 @@ export interface CommentsSelect<T extends boolean = true> {
   content?: T;
   createdAt?: T;
   updatedAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "profile_select".
- */
-export interface ProfileSelect<T extends boolean = true> {
-  user?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
